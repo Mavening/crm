@@ -45,4 +45,32 @@ public interface SaleChanceService {
      */
     @Transactional
     void addSaleChance(SaleChance saleChance);
+
+    /**
+     * 更新营销机会
+     *      1.参数校验
+     *          营销机会ID 非空，数据库中对应的记录存在
+     *          1.customerName：客户名称 非空
+     *          2.linkMan：联系人 非空
+     *          3.linkPhone：联系号码 非空，手机号码格式正确
+     *      2.设置相关参数默认值
+     *          updateDate更新时间 设置为系统当前时间
+     *          assignMan指派人
+     *               原始数据未设置
+     *                      修改后未设置  不需要操作
+     *                      修改后已设置  assignTime指派时间设置为系统时间
+     *                          分配状态 改为已分配
+     *                          开发状态 改为开发中
+     *               原始数据已设置
+     *                      修改后未设置  assignTime指派时间设置为null
+     *                          分配状态 改为未分配
+     *                          开发状态 改为未开发
+     *                      修改后已设置 判断修改前后是否是同一个指派人，如果是就不需要操作。如果不是，则需要更新指派时间   assignTime指派时间设置为系统时间
+     *                          分配状态 改为已分配
+     *                          开发状态 改为开发中
+     * 3.执行修改操作
+     * @param saleChance
+     */
+    @Transactional
+    void updateSaleChance(SaleChance saleChance);
 }

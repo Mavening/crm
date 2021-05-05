@@ -9,10 +9,7 @@ import com.lhl.crm.utils.CookieUtil;
 import com.lhl.crm.vo.SaleChance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -70,5 +67,18 @@ public class SaleChanceController extends BaseController {
     @GetMapping("/toSaleChancePage")
     public String toSaleChancePage(){
         return "/saleChance/add_update";
+    }
+
+    /**
+     * 更新营销机会
+     * @param saleChance
+     * @return
+     */
+    @ResponseBody
+    @PutMapping("/update")
+    public ResultInfo updateSaleChance(SaleChance saleChance){
+        //调用修改方法
+        saleChanceService.updateSaleChance(saleChance);
+        return new ResultInfo(200,"营销机会数据更新成功",null);
     }
 }
