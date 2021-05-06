@@ -5,6 +5,7 @@ import com.lhl.crm.query.SaleChanceQuery;
 import com.lhl.crm.vo.SaleChance;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 public interface SaleChanceService {
@@ -73,4 +74,19 @@ public interface SaleChanceService {
      */
     @Transactional
     void updateSaleChance(SaleChance saleChance);
+
+    /**
+     * 根据id查询营销机会
+     * @param integer
+     * @return
+     */
+    SaleChance selectByPrimaryKey1(Integer integer);
+
+    /**
+     * 删除营销机会
+     * @param ids
+     */
+    @Transactional
+    void deleteBatchs(Integer[] ids);
+
 }

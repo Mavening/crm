@@ -101,7 +101,7 @@ layui.use(['form', 'layer'], function () {
         url:ctx + "/user/queryAllSales",
         data:{},
         success:function (data) {
-            // console.log(data);
+            console.log(data);
             // 判断返回的数据是否为空
             if (data != null) {
                 // 获取隐藏域设置的指派人ID
@@ -112,10 +112,10 @@ layui.use(['form', 'layer'], function () {
                     // 如果循环得到的ID与隐藏域的ID相等，则表示被选中
                     if (assignManId == data[i].id) {
                         // 设置下拉选项  设置下拉选项选中
-                        opt = "<option value='"+data[i].id+"' selected>"+data[i].uname+"</option>";
+                        opt = "<option value='"+data[i].id+"' selected>"+data[i].user_name+"</option>";
                     } else {
                         // 设置下拉选项
-                        opt = "<option value='"+data[i].id+"'>"+data[i].uname+"</option>";
+                        opt = "<option value='"+data[i].id+"'>"+data[i].user_name+"</option>";
                     }
 
                     // 将下拉项设置到下拉框中

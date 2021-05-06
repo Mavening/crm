@@ -5,6 +5,9 @@ import com.lhl.crm.model.UserModel;
 import com.lhl.crm.vo.User;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserService {
 
     /**
@@ -25,4 +28,11 @@ public interface UserService {
      */
     @Transactional
     void updatePassword(Integer userId,String oldPwd,String newPwd,String repeatPwd);
+
+    /**
+     * 查询所有销售人员
+     * @return
+     */
+    List<Map<String,Object>> queryAllSales();
+
 }

@@ -145,4 +145,25 @@
        </include>
      from t_user where user_name = #{userName}
   </select>
+
+  <select id="queryAllSales" resultType="java.util.Map">
+     select
+      tuser.id,tuser.user_name
+      from
+      t_user tuser
+      join
+      t_role trole
+      join
+      t_user_role tur
+      on
+      tur.role_id = trole.id
+      and
+      tur.user_id = tuser.id
+      and
+      trole.is_valid = 1
+      and
+      tuser.is_valid = 1
+      and
+      trole.role_name = '销售'
+  </select>
 </mapper>

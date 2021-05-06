@@ -13,11 +13,13 @@ import com.lhl.crm.utils.PhoneUtil;
 import com.lhl.crm.vo.SaleChance;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -99,9 +101,25 @@ public class SaleChanceServiceImpl  extends BaseService<SaleChanceService,Intege
                     saleChance.setAssignTime(date);
                     saleChance.setState(StateStatus.UNSTATE.getType());
                     saleChance.setDevResult(DevResult.UNDEV.getStatus());
+                }else{
+                    //设置指派时间为修改前的时间
+                    saleChance.setAssignTime(temp.getAssignTime());
                 }
             }
         }
         AssertUtil.isTrue(saleChanceMapper.updateByPrimaryKeySelective(saleChance)!=1,"更新营销机会失败");
+    }
+
+    @Override
+    public SaleChance selectByPrimaryKey1(Integer integer) throws DataAccessException {
+        return saleChanceMapper.selectByPrimaryKey(integer);
+    }
+
+    @Override
+    public void deleteBatchs(Integer[] ids) {
+        //判断id是否为空
+        AssertUtil.isTrue(null==ids||ids.length<1,"待删除记录不存在");
+        //执行删除操作，判断受影响的行数
+        AssertUtil.isTrue(saleChanceMapper.deleteBatch(ids)!=ids.length,"营销机会数据删除失败");
     }
 }

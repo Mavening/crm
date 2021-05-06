@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("user")
@@ -69,6 +71,15 @@ public class UserController extends BaseController {
             return new ResultInfo(401,e.getMessage(),null);
         }
             return new ResultInfo(200,"修改成功",null);
+    }
+
+    @ResponseBody
+    @GetMapping("/queryAllSales")
+    public List<Map<String, Object>> queryAllSales(){
+        List<Map<String, Object>> list = userService.queryAllSales();
+        list.forEach(System.out::println);
+        return list;
+        //return new ResultInfo(200,"操作成功",null);
     }
 
 }

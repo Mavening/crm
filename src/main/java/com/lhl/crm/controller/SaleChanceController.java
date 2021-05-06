@@ -65,7 +65,15 @@ public class SaleChanceController extends BaseController {
      * @return
      */
     @GetMapping("/toSaleChancePage")
-    public String toSaleChancePage(){
+    public String toSaleChancePage(Integer saleChanceId,HttpServletRequest request){
+        //判断saleChanceId是否为空
+        if(saleChanceId!=null){
+            //通过id查询营销机会数据
+            SaleChance saleChance = saleChanceService.selectByPrimaryKey1(saleChanceId);
+            System.out.println(saleChance);
+            //将数据设置到请求域中
+            request.setAttribute("saleChance",saleChance);
+        }
         return "/saleChance/add_update";
     }
 
@@ -75,10 +83,22 @@ public class SaleChanceController extends BaseController {
      * @return
      */
     @ResponseBody
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResultInfo updateSaleChance(SaleChance saleChance){
         //调用修改方法
         saleChanceService.updateSaleChance(saleChance);
         return new ResultInfo(200,"营销机会数据更新成功",null);
+    }
+
+    /**
+     * 删除营销机会数据
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @DeleteMapping("/delete")
+    public ResultInfo deleteSaleChance(Integer[] ids){
+        saleChanceService.deleteBatchs(ids);
+        return new ResultInfo(200,"营销机会数据删除成功", null);
     }
 }

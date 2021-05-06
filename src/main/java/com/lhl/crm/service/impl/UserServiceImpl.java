@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class UserServiceImpl extends BaseService<User,Integer> implements UserService {
 
@@ -87,5 +90,10 @@ public class UserServiceImpl extends BaseService<User,Integer> implements UserSe
         AssertUtil.isTrue(!newPwd.equals(repeatPwd),"两次密码不一致");
         user.setUserPwd(Md5Util.encode(newPwd));
         AssertUtil.isTrue(userMapper.updateByPrimaryKeySelective(user)<1,"修改密码失败");
+    }
+
+    @Override
+    public List<Map<String, Object>> queryAllSales() {
+        return userMapper.queryAllSales();
     }
 }

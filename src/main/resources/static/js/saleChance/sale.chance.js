@@ -240,8 +240,8 @@ layui.use(['table','layer'],function(){
 
             // 发送ajax请求，执行删除营销机会
             $.ajax({
-                type:"post",
-                url:ctx + "/sale_chance/delete",
+                type:"delete",
+                url:ctx + "/saleChance/delete",
                 data:ids, // 传递的参数是数组 ids=1&ids=2&ids=3
                 success:function (result) {
                     // 判断删除结果
@@ -268,7 +268,7 @@ layui.use(['table','layer'],function(){
          });
      */
     table.on('tool(saleChances)', function (data) {
-        // console.log(data);
+         //console.log(data);
         // 判断类型
         if (data.event == "edit") { // 编辑操作
 
@@ -285,8 +285,8 @@ layui.use(['table','layer'],function(){
 
                 // 发送ajax请求，删除记录
                 $.ajax({
-                    type:"post",
-                    url:ctx + "/sale_chance/delete",
+                    type:"delete",
+                    url:ctx + "/saleChance/delete",
                     data:{
                         ids:data.data.id
                     },
