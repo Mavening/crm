@@ -118,7 +118,7 @@ layui.use(['table','layer'],function(){
 
             // 发送ajax请求，执行删除用户
             $.ajax({
-                type:"post",
+                type:"delete",
                 url:ctx + "/user/delete",
                 data:ids, // 传递的参数是数组 ids=1&ids=2&ids=3
                 success:function (result) {
@@ -168,7 +168,7 @@ layui.use(['table','layer'],function(){
 
             // 发送ajax请求，删除记录
             $.ajax({
-                type:"post",
+                type:"delete",
                 url:ctx + "/user/delete",
                 data:{
                     ids:id

@@ -4,9 +4,11 @@ import com.lhl.crm.base.BaseService;
 import com.lhl.crm.dao.UserMapper;
 import com.lhl.crm.exceptions.ParamsException;
 import com.lhl.crm.model.UserModel;
+import com.lhl.crm.query.UserQuery;
 import com.lhl.crm.service.UserService;
 import com.lhl.crm.utils.AssertUtil;
 import com.lhl.crm.utils.Md5Util;
+import com.lhl.crm.utils.PhoneUtil;
 import com.lhl.crm.utils.UserIDBase64;
 import com.lhl.crm.vo.User;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -95,5 +98,46 @@ public class UserServiceImpl extends BaseService<User,Integer> implements UserSe
     @Override
     public List<Map<String, Object>> queryAllSales() {
         return userMapper.queryAllSales();
+    }
+
+    @Override
+    public List<User> queryByParamsForTable(UserQuery userQuery) {
+        return userMapper.selectByParmas(userQuery);
+    }
+
+    @Override
+    public void addUser(User user) {
+        AssertUtil.isTrue(StringUtils.isBlank(user.getUserName()),"用户名不能为空");
+        AssertUtil.isTrue(null!=userMapper.queryByName(user.getUserName()),"用户名已存在");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getPhone()),"手机号不能为空");
+        AssertUtil.isTrue(!PhoneUtil.isMobile(user.getPhone()),"手机号格式不正确");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getEmail()),"邮箱不能为空");
+
+        Date date = new Date();
+        user.setIsValid(1);
+        user.setCreateDate(date);
+        user.setUpdateDate(date);
+        //默认密码
+        user.setUserPwd(Md5Util.encode("123456"));
+
+        AssertUtil.isTrue(userMapper.insertSelective(user)==0,"用户添加失败");
+
+    }
+
+
+    @Override
+    public void updateUser(User user,Integer userId) {
+        //如果用户名存在，且与当前修改的记录不是同一个，则表示其他记录占用了该用户名
+        AssertUtil.isTrue(null==user.getId(),"待更新记录不存在");
+        AssertUtil.isTrue(null==userMapper.selectByPrimaryKey(user.getId()),"待更新记录不存在");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getUserName()),"用户名不能为空");
+        AssertUtil.isTrue(null!=userMapper.queryByName(user.getUserName())&&!user.getId().equals(userId),"用户名已存在");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getPhone()),"手机号不能为空");
+        AssertUtil.isTrue(!PhoneUtil.isMobile(user.getPhone()),"手机号格式不正确");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getEmail()),"邮箱不能为空");
+        //设置默认值
+        Date date = new Date();
+        user.setUpdateDate(date);
+        AssertUtil.isTrue(userMapper.updateByPrimaryKeySelective(user)==0,"更新用户操作失败");
     }
 }

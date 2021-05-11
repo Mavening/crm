@@ -19,4 +19,10 @@ public class SaleChanceQuery extends BaseQuery {
     private String createName;
     //分配状态 0表示未分配 1表示已分配
     private Integer state;
+
+    //客户开发计划
+    //开发状态
+    private String devResult;
+    //分配人
+    private String assignMan;
 }

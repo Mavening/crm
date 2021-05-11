@@ -1,6 +1,7 @@
 package com.lhl.crm.dao;
 
 import com.lhl.crm.base.BaseMapper;
+import com.lhl.crm.query.UserQuery;
 import com.lhl.crm.vo.User;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface UserMapper extends BaseMapper<User,Integer> {
      * @return
      */
     List<Map<String,Object>> queryAllSales();
+
+   List<User> selectByParmas(UserQuery userQuery);
 }

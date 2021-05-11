@@ -34,8 +34,8 @@
                         <i class="layui-icon">&#xe608;</i>
                         添加用户
                     </a>
-                    <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">
-                        <i class="layui-icon">&#xe608;</i>
+                    <a class="layui-btn layui-btn-normal delNews_btn  layui-bg-red" lay-event="del">
+                        <i class="layui-icon layui-icon-delete"></i>
                         删除用户
                     </a>
                 </div>

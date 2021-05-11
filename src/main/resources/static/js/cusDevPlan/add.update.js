@@ -22,6 +22,11 @@ layui.use(['form', 'layer'], function () {
         // 请求的地址
         var url = ctx + "/cus_dev_plan/add";
 
+        //判断计划ID是否为空(如果不为空，则表示更新)
+        if($('[name="id"]').val()){
+            url = ctx + '/cus_dev_plan/update';
+        }
+
         $.post(url, formData, function (result) {
             // 判断操作是否执行成功 200=成功
             if (result.code == 200) {

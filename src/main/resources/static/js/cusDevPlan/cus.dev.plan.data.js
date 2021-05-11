@@ -1,7 +1,8 @@
-layui.use(['table','layer'],function(){
+layui.use(['table','layer','laydate'],function(){
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-        table = layui.table;
+        table = layui.table,
+        laydate = layui.laydate;
 
     /**
      * 加载计划项数据表格
@@ -15,7 +16,7 @@ layui.use(['table','layer'],function(){
         // 单元格最小的宽度
         ,cellMinWidth:95
         // 访问数据的URL（后台的数据接口）
-        ,url: ctx + '/cus_dev_plan/list?saleChanceId=' + $("[name='id']").val()
+        ,url: ctx + '/cus_dev_plan/queryCusDevPlanByParams?saleChanceId=' + $("[name='id']").val()
         // 开启分页
         ,page: true
         // 默认每页显示的数量
@@ -117,7 +118,7 @@ layui.use(['table','layer'],function(){
         // 弹出确认框，询问用户是否确认删除
         layer.confirm('您确认要删除该记录吗？',{icon:3, title:'开发项数据管理'}, function (index) {
             // 发送ajax请求，执行删除操作
-            $.post(ctx + '/cus_dev_plan/delete',{id:id}, function (result) {
+            $.delete(ctx + '/cus_dev_plan/delete',{id:id}, function (result) {
                 // 判断删除结果
                 if (result.code == 200) {
                     // 提示成功
@@ -143,7 +144,7 @@ layui.use(['table','layer'],function(){
             // 得到需要被更新的饿营销机会的ID （通过隐藏域获取）
             var sId = $("[name='id']").val();
             // 发送ajax请求，更新营销机会的开发状态
-            $.post(ctx+ '/sale_chance/updateSaleChanceDevResult',{id:sId,devResult:devResult}, function (result) {
+            $.put(ctx+ '/saleChance/updateSaleChanceDevResult',{id:sId,devResult:devResult}, function (result) {
                 if (result.code == 200) {
                     layer.msg('更新成功！', {icon:6});
                     // 关闭窗口

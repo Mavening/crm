@@ -1,17 +1,8 @@
 package com.lhl.crm.dao;
 
+import com.lhl.crm.base.BaseMapper;
 import com.lhl.crm.vo.CusDevPlan;
 
-public interface CusDevPlanMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface CusDevPlanMapper extends BaseMapper<CusDevPlan,Integer> {
 
-    int insert(CusDevPlan record);
-
-    int insertSelective(CusDevPlan record);
-
-    CusDevPlan selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(CusDevPlan record);
-
-    int updateByPrimaryKey(CusDevPlan record);
 }

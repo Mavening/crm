@@ -15,7 +15,7 @@ layui.use(['table','layer'],function(){
         // 单元格最小的宽度
         ,cellMinWidth:95
         // 访问数据的URL（后台的数据接口） 设置flag参数，表示查询的事客户开发计划数据
-        ,url: ctx + '/sale_chance/list?flag=1'
+        ,url: ctx + '/saleChance/querySaleChanceByParams?flag=1'
         // 开启分页
         ,page: true
         // 默认每页显示的数量
@@ -61,15 +61,15 @@ layui.use(['table','layer'],function(){
      */
     function formatDevResult(devResult) {
         if (devResult == 0) {
-            return "<div style='color: yellow'>未开发</div>";
+            return "<div class='layui-badge layui-bg-orange'>未开发</div>";
         } else if (devResult == 1) {
-            return "<div style='color: orange'>开发中</div>";
+            return "<div class='layui-badge layui-bg-blue'>开发中</div>";
         } else if (devResult == 2) {
-            return "<div style='color: green'>开发成功</div>";
+            return "<div class='layui-badge layui-bg-green'>开发成功</div>";
         } else if (devResult == 3) {
-            return "<div style='color: red'>开发失败</div>";
+            return "<div class='layui-badge layui-bg-cyan'>开发失败</div>";
         } else {
-            return "<div style='color: blue'>未知</div>";
+            return "<div class='layui-badge layui-bg-red'>未知</div>";
         }
     }
 

@@ -81,11 +81,11 @@
 					添加计划项
 				</a>
 				<a class="layui-btn layui-btn-normal addNews_btn layui-bg-green" lay-event="success">
-					<i class="layui-icon">&#xe608;</i>
+					<i class="layui-icon layui-icon-ok"></i>
 					开发成功
 				</a>
 				<a class="layui-btn layui-btn-normal addNews_btn layui-bg-red" lay-event="failed">
-					<i class="layui-icon">&#xe608;</i>
+					<i class="layui-icon layui-icon-close"></i>
 					开发失败
 				</a>
 			</div>

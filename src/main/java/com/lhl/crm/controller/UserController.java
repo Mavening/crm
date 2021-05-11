@@ -1,9 +1,12 @@
 package com.lhl.crm.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lhl.crm.base.BaseController;
 import com.lhl.crm.base.ResultInfo;
 import com.lhl.crm.exceptions.ParamsException;
 import com.lhl.crm.model.UserModel;
+import com.lhl.crm.query.UserQuery;
 import com.lhl.crm.service.UserService;
 import com.lhl.crm.utils.CookieUtil;
 import com.lhl.crm.utils.LoginUserUtil;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,4 +86,63 @@ public class UserController extends BaseController {
         //return new ResultInfo(200,"操作成功",null);
     }
 
+    /**
+     * 多条件查询用户列表
+     * @param userQuery
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/list")
+    public Map<String,Object> selectByParams(UserQuery userQuery){
+        HashMap<String, Object> map = new HashMap<>();
+        PageHelper.startPage(userQuery.getPage(),userQuery.getLimit());
+        PageInfo<User> userPageInfo = new PageInfo<User>(userService.queryByParamsForTable(userQuery));
+        map.put("code",0);
+        map.put("msg","success");
+        map.put("count",userPageInfo.getTotal());
+        map.put("data", userPageInfo.getList());
+        return map;
+    }
+
+    /**
+     * 进入用户列表页面
+     * @return
+     */
+    @GetMapping("/index")
+    public String index(){
+        return "user/user";
+    }
+
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/add")
+    public ResultInfo addUser(User user){
+        userService.addUser(user);
+        return new ResultInfo(200,"用户添加成功",null);
+    }
+
+    /**
+     * 进入用户添加或更新页面
+     * @return
+     */
+    @GetMapping("/toAddOrUpdateUserPage")
+    public String toAddOrUpdateUserPage(){
+        return "user/add_update";
+    }
+
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/update")
+    public ResultInfo updateUser(User user){
+        userService.updateUser(user);
+        return new ResultInfo(200,"用户更新成功",null);
+    }
 }

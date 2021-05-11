@@ -166,4 +166,25 @@
       and
       trole.role_name = '销售'
   </select>
+
+  <!--多条件查询-->
+  <select id="selectByParmas" resultType="com.lhl.crm.vo.User">
+    select
+      <include refid="Base_Column_List">
+      </include>
+    from
+        t_user
+    <where>
+      is_valid = 1
+      <if test="null != userName and userName !=''">
+        and user_name like concat('%',#{userName},'%')
+      </if>
+      <if test="null != email and email !=''">
+        and email like concat('%',#{email},'%')
+      </if>
+      <if test="null != phone and phone !=''">
+        and phone like concat('%',#{phone},'%')
+      </if>
+    </where>
+  </select>
 </mapper>
