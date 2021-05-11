@@ -141,8 +141,8 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/update")
-    public ResultInfo updateUser(User user){
-        userService.updateUser(user);
+    public ResultInfo updateUser(User user,Integer userId){
+        userService.updateUser(user,userId);
         return new ResultInfo(200,"用户更新成功",null);
     }
 }
